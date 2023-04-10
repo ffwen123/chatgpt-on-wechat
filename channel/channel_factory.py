@@ -11,6 +11,9 @@ def create_channel(channel_type):
     if channel_type == 'wx':
         from channel.wechat.wechat_channel import WechatChannel
         return WechatChannel()
+    if channel_type == 'wxcom':
+        from channel.wechatcom.wechatenterprise_channel import WechatEnterpriseChannel
+        return WechatEnterpriseChannel()
     elif channel_type == 'wxy':
         from channel.wechat.wechaty_channel import WechatyChannel
         return WechatyChannel()

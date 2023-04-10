@@ -69,9 +69,9 @@ available_setting = {
     "azure_voice_region": "japaneast",
 
     # 服务时间限制，目前支持itchat
-    "chat_time_module": False,  # 是否开启服务时间限制
+    "chat_time_module": False,   # 是否开启服务时间限制
     "chat_start_time": "00:00",  # 服务开始时间
-    "chat_stop_time": "24:00",  # 服务结束时间
+    "chat_stop_time": "24:00",   # 服务结束时间
 
     # itchat的配置
     "hot_reload": False,  # 是否开启热重载
@@ -85,11 +85,18 @@ available_setting = {
     "wechatmp_app_id": "",      # 微信公众平台的appID，仅服务号需要
     "wechatmp_app_secret": "",  # 微信公众平台的appsecret，仅服务号需要
 
+    # wechatcom的配置
+    "wechat_token": "",             # 企业微信 回调token
+    "wechat_encoding_aes_key": "",  # 企业微信 编码后的AES Key
+    "wechat_corp_id": "",           # 企业微信 企业ID
+    "secret": "",                   # 企业微信 应用Secret
+    "appid": "",                    # 企业微信 应用ID
+
     # chatgpt指令自定义触发词
     "clear_memory_commands": ['#清除记忆'],  # 重置会话指令，必须以#开头
 
     # channel配置
-    "channel_type": "wx", # 通道类型，支持：{wx,wxy,terminal,wechatmp,wechatmp_service}
+    "channel_type": "wx", # 通道类型，支持：{wx,wxy,terminal,wechatcom,wechatmp,wechatmp_service}
 
     "debug": False,  # 是否开启debug模式，开启后会打印更多日志
 
