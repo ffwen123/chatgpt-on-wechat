@@ -32,11 +32,11 @@ def handler_msg():
 class WechatEnterpriseChannel(Channel):
 
     def __init__(self):
-        self.CorpId = conf().get('WECHAT_CORP_ID')
-        self.Secret = conf().get('Secret')
-        self.AppId = conf().get('AppId')
-        self.TOKEN = conf().get('WECHAT_TOKEN')
-        self.EncodingAESKey = conf().get('WECHAT_ENCODING_AES_KEY')
+        self.CorpId = conf().get('wechat_corp_id')
+        self.Secret = conf().get('secret')
+        self.AppId = conf().get('appid')
+        self.TOKEN = conf().get('wechat_token')
+        self.EncodingAESKey = conf().get('wechat_encoding_aes_key')
         self.crypto = WeChatCrypto(self.TOKEN, self.EncodingAESKey, self.CorpId)
         self.client = WeChatClient(self.CorpId, self.Secret, self.AppId)
 
