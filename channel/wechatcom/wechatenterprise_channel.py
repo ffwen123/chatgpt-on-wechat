@@ -45,8 +45,8 @@ class WechatEnterpriseChannel(Channel):
         app.run(host='0.0.0.0', port=8888)
 
     def send(self, reply: Reply, context: Context):
-        logger.info('[WXCOM] sendMsg={}, receiver={}'.format(reply.content, context["source"]))
-        self.client.message.send_text(self.AppId, context["source"], reply.content)
+        logger.info('[WXCOM] sendMsg={}, receiver={}'.format(context.content, context.source))
+        self.client.message.send_text(self.AppId, context.source, context.content)
 
     # def _do_send(self, query, reply_user_id):
     def _do_send(self, reply: Reply, msg, retry_cnt=0):
@@ -55,9 +55,13 @@ class WechatEnterpriseChannel(Channel):
                 return
             # context = dict()
             # context['from_user_id'] = reply_user_id
-            reply_text = super().build_reply_content(reply, msg.context)
-            if reply_text:
-                self.send(reply_text, msg)
+            if msg.type == "text":
+                context = Context(ContextType.TEXT, msg)
+                reply_text = super().build_reply_content(msg.content, context)
+                if reply_text:
+                    self.send(reply_text, context)
+            else:
+                return
         except Exception as e:
             logger.error('[WX] sendMsg error: {}'.format(str(e)))
             if isinstance(e, NotImplementedError):
@@ -94,7 +98,7 @@ class WechatEnterpriseChannel(Channel):
             msg = parse_message(message)
             if msg.type == 'text':
                 reply = '收到'
-                thread_pool.submit(self._do_send, msg.context, msg, retry_cnt=0)
+                thread_pool.submit(self._do_send, msg.content, msg, retry_cnt=0)
             else:
                 reply = 'Can not handle this for now'
             self.client.message.send_text(self.AppId, msg.source, reply)
